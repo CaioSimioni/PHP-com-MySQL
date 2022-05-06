@@ -1,44 +1,68 @@
 <?php
 
+/**
+ * Database é utilizado para facilitar a implementação de Banco de Dados
+ * utilizando o PDO para acessar o banco.
+ * 
+ * @author Caio.Simioni
+ * @version 1.0
+ * 
+ * @method Bool __construct() Cria a conexão com o Banco de Dados.
+ */
 class Database
 {
+    /** @var Object $pdo Guarda o objeto da classe PDO.*/
     protected $pdo;
-    private $db = [     //  Futuramente utilizar variáveis de ambiente.
+    /** @var String $msgError Qualquer tipo de Exception. */
+    private $msgError;
+    /** @var Array ["driver", "host", "name", "user", "pass"]*/
+    private $database = [
         "driver" => "mysql",
         "host" => "localhost",
         "name" => "my_database",
         "user" => "root",
         "pass" => ""
     ];
-    private $msgErro = "";
+    /** @var Bool Diz se a conexão com o Banco está True ou False*/
+    private $status;
 
-    public function connection()
+    /**
+     * Cria a conexão com o Banco de Dados.
+     * 
+     * @return Bool Se precisar use o mêtodo getStatus() para revalidar.
+     * @throws \PDOException
+     */
+    public function __construct()
     {
-        $driver = $this->db["driver"];
-        $host = $this->db["host"];
-        $name = $this->db["name"];
-        $user = $this->db["user"];
-        $pass = $this->db["pass"];     // Futuramente adicionar criptografia a senha.
+        $driver = $this->database["driver"];
+        $host = $this->database["host"];
+        $name = $this->database["name"];
+        $user = $this->database["user"];
+        $pass = $this->database["pass"];
 
         try {
             $connectionString = $driver . ":host=" . $host . ";dbname=" . $name;
             $this->setPdo(new PDO($connectionString, $user, $pass));
-            return true;
+            $this->setStatus(true);
+            return $this->getStatus();
         } catch (PDOException $err) {
-            $this->setMsgErro("Erro: " . $err->getMessage());
-            return false;
+            $this->setMsgError("Erro: " . $err->getMessage());
+            $this->setStatus(false);
+            return $this->getStatus();
         }
     }
 
-    public function getMsgErro()
+    /** @return String */
+    public function getMsgError()
     {
-        return $this->msgErro;
+        return $this->msgError;
     }
-    private function setMsgErro(String $msg)
+    private function setMsgError(String $msg)
     {
-        $this->msgErro = $msg;
+        $this->msgError = $msg;
     }
-    public function getPdo()
+    /** @return Object */
+    protected function getPdo()
     {
         return $this->pdo;
     }
@@ -46,4 +70,14 @@ class Database
     {
         $this->pdo = $pdo;
     }
+    private function setStatus(Bool $status)
+    {
+        $this->status = $status;
+    }
+    /** @return Bool */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }
+
