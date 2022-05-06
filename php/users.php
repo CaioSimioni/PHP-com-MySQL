@@ -24,7 +24,7 @@ class Users extends Database
 
     public function insertUser(String $name, String $pass)
     {
-        if (Database::connection()) {
+        if (Database::class) {
             $sql = Database::getPdo()->prepare("SELECT * FROM `users` WHERE `name` = :n;");
             $sql->bindValue(":n", $name);
             $sql->execute();
@@ -53,7 +53,7 @@ class Users extends Database
 
     public function authenticateUser(String $name, String $pass)
     {
-        if (Database::connection()) {
+        if (Database::class) {
             $sql = Database::getPdo()->prepare("SELECT * FROM `users` WHERE `name` = :n ;");
             $sql->bindValue(":n", $name);
             $sql->execute();
