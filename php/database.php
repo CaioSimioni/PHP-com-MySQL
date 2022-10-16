@@ -6,8 +6,6 @@
  * 
  * @author Caio.Simioni
  * @version 1.0
- * 
- * @method Bool __construct() Cria a conexão com o Banco de Dados.
  */
 class Database
 {
@@ -61,7 +59,10 @@ class Database
     {
         $this->msgError = $msg;
     }
-    /** @return Object */
+    /**
+     * Retorna o Objeto da classe PDO. Que representa a conexão com o Banco de Dados.
+     *  @return Object 
+     */
     protected function getPdo()
     {
         return $this->pdo;
@@ -74,10 +75,12 @@ class Database
     {
         $this->status = $status;
     }
-    /** @return Bool */
+    /**
+     * Retorna o status da conexão
+     * @return Bool
+     */
     public function getStatus()
     {
         return $this->status;
     }
 }
-
