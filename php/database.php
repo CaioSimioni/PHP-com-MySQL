@@ -9,11 +9,11 @@
  */
 class Database
 {
-    /** @var Object $pdo Guarda o objeto da classe PDO.*/
+    /** @var object $pdo Guarda o objeto da classe PDO.*/
     protected $pdo;
-    /** @var String $msgError Qualquer tipo de Exception. */
+    /** @var string $msgError Qualquer tipo de Exception. */
     private $msgError;
-    /** @var Array ["driver", "host", "name", "user", "pass"]*/
+    /** @var array ["driver", "host", "name", "user", "pass"]*/
     private $database = [
         "driver" => "mysql",
         "host" => "localhost",
@@ -21,13 +21,13 @@ class Database
         "user" => "root",
         "pass" => ""
     ];
-    /** @var Bool Diz se a conexão com o Banco está True ou False*/
+    /** @var bool Diz se a conexão com o Banco está True ou False*/
     private $status;
 
     /**
      * Cria a conexão com o Banco de Dados.
      * 
-     * @return Bool Se precisar use o mêtodo getStatus() para revalidar.
+     * @return bool Se precisar use o mêtodo getStatus() para revalidar.
      * @throws \PDOException
      */
     public function __construct()
@@ -50,7 +50,7 @@ class Database
         }
     }
 
-    /** @return String */
+    /** @return string */
     public function getMsgError()
     {
         return $this->msgError;
@@ -61,7 +61,7 @@ class Database
     }
     /**
      * Retorna o Objeto da classe PDO. Que representa a conexão com o Banco de Dados.
-     *  @return Object 
+     *  @return object 
      */
     protected function getPdo()
     {
@@ -77,7 +77,7 @@ class Database
     }
     /**
      * Retorna o status da conexão
-     * @return Bool
+     * @return bool
      */
     public function getStatus()
     {
